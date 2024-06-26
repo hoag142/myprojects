@@ -4,6 +4,29 @@
 *execute buffer overflow*  
 ![image](https://github.com/quang-ute/myprojects/assets/152377486/7758e4c8-2478-46e6-a6ba-9f3f07aa2a8c)
 : <span style="color:blue">GET / HTTP/1.1 </span><br>
+Code to run the container contain the lab
+--
+#include<stdio.h>
+#include<unistd.h>
+void secretFunc()
+{
+    printf("Congratulation!\n:");
+}
+int vuln(){
+    char array[200];
+    printf("Enter text:");
+    gets(array);
+    return 0;
+}
+int main(int argc, char*argv[]){
+    if (argv[1]==0){
+        prinf("Missing arguments\n");
+    }
+    vuln();
+    return 0;
+}
+
+--
 Header lines of HTTP request message (sample): <br>
 <span style="color:blue">Host: localhost:5050 <br>
 Connection: keep-alive <br>
