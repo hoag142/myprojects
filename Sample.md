@@ -44,36 +44,34 @@ we can see the address of secretFunc at the first line `0x0804846b`
 You can see that i fill buffer with 204 char `a`(why 204 because to fill the buffer we need 200 byte and more 4 byte to fill the ebp) and insert address with little-endian type `/x6b/x84/x04/x08`
 And i success with the line `Congratulation!`
 
-## 4.1.b
-*Is your browser running HTTP version 1.0 or 1.1? What version of HTTP is the server running?*
-- Browser's HTTP version: HTTP/1.1 (as indicated by HTTP/1.1 in the request line) 
-- Server's HTTP version: HTTP/1.1 (as indicated by HTTP/1.1 in the status line)
-# Task 4.2: Http conditional GET/Response Interaction
-- Information sniffed
+## bof 2
 
-<img width="726" alt="Screenshot 2023-05-02 165126" src="https://github.com/quang-ute/myprojects/assets/57078914/5b008df9-130c-4501-90d9-fb09f9a89a35">
+![image](https://github.com/hoag142/myprojects/assets/152377486/61063590-0160-40c1-b29f-6a754e6f91a0)
 
-## 4.2.a
-*Inspect the contents of the first HTTP GET request from your browser to the server. Do you see an 
-“IF-MODIFIED-SINCE” line in the HTTP GET?*
-- There is an "If-Modified-Since" line in the HTTP GET request
+I do the similar at bof1 to the *step 1*
 
-<span style="color:blue">This is a way for the browser to request that content be returned only if it has been modified since the specified time</span>
-## 4.2.b
-*What is the HTTP status code and phrase returned from the server in response to this second HTTP GET? Did the server explicitly return the contents of the file? Explain.*
-- No content is sent back.
+![image](https://github.com/hoag142/myprojects/assets/152377486/da76259b-0a82-400b-92cc-3925ed298f15)
 
-<span style="color:blue">In my opinion it shows that the content has not changed since the specified time, so the server does not need to send the content back to the browser.</span>
-# Task 4.3: Examine Http request methods
-## 4.3.a
-- Information being sniffed
 
-<img width="829" alt="Screenshot 2023-05-02 171034" src="https://github.com/quang-ute/myprojects/assets/57078914/07eb9d96-0ac2-4891-986a-29f2593fa3e3">
+But now we have buffer in main 
 
-<span style="color:blue">From my perspective, it demonstrates different methods of sending form data to the server and how the server responds based on the request type. The resulting HTML pages provide insights into how the server processes and presents the submitted data back to the user.</span>
-## 4.3.b
-*Examine encrypt password authentication*
+![image](https://github.com/hoag142/myprojects/assets/152377486/2937917d-e43c-4c80-9143-6a4e106518c3)
 
-![Screenshot 2023-07-02 215333](https://github.com/quang-ute/myprojects/assets/57078914/6b9b0fe0-af40-4d56-a505-fcf5e055736e)
+'check' : If `check` is not `0x04030201` and not `0xdeadbeef`, print the message `You are on the right way!`.
+If the `check` is equal to `0xdeadbeef`, print `Yeah! You win!`.
 
- 
+- Enter data longer than 40 bytes to overwrite the `check` memory area
+  
+- If we enter 45 bytes, we can overwrite the `check` variable, changing its value.
+  
+- For example, if we enter a string longer than 40 bytes that starts at the appropriate position, we can overwrite the value `0xdeadbeef` in the check variable, resulting in the program printing `Yeah! You win!`.
+
+  ![image](https://github.com/hoag142/myprojects/assets/152377486/178f8596-fbdb-46fa-b58b-4dd1c58c6d7b)
+
+I enter the value `0xdeadbeef` as little-endian type.
+
+  ![image](https://github.com/hoag142/myprojects/assets/152377486/2b641368-1528-4b1a-9f63-a803bdf4a32e)
+
+And i success execute the buffer overflow
+
+
