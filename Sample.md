@@ -1,8 +1,9 @@
-# 22110172, Vũ Văn Việt
-# Task 4.1: Exploring HTTP messages
-## 4.1.a
-*Identify request line, header lines, blank line of HTTP request message, as well as the Status line, Header lines, blank line, Entity body of HTTP response message?*  
-Request line of HTTP request message: <span style="color:blue">GET / HTTP/1.1 </span><br>
+![image](https://github.com/quang-ute/myprojects/assets/152377486/ca98f008-ed16-4de4-ab75-f6a6a54df7db)# 22110029, Trần Huy Hoàng
+# Lab 1
+## bof1
+*execute buffer overflow*  
+![image](https://github.com/quang-ute/myprojects/assets/152377486/7758e4c8-2478-46e6-a6ba-9f3f07aa2a8c)
+: <span style="color:blue">GET / HTTP/1.1 </span><br>
 Header lines of HTTP request message (sample): <br>
 <span style="color:blue">Host: localhost:5050 <br>
 Connection: keep-alive <br>
