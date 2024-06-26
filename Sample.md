@@ -41,7 +41,7 @@ we can see the address of secretFunc at the first line `0x0804846b`
 ![image](https://github.com/hoag142/myprojects/assets/152377486/03258068-9579-4265-8288-9cd5bf3ff75d)
 
 
-You can see that i fill buffer with 204 char `a` and insert address with little-endian type `/x6b/x84/x04/x08`
+You can see that i fill buffer with 204 char `a`(why 204 because to fill the buffer we need 200 byte and more 4 byte to fill the ebp) and insert address with little-endian type `/x6b/x84/x04/x08`
 And i success with the line `Congratulation!`
 
 ## 4.1.b
