@@ -1,46 +1,48 @@
-![image](https://github.com/quang-ute/myprojects/assets/152377486/ca98f008-ed16-4de4-ab75-f6a6a54df7db)# 22110029, Trần Huy Hoàng
+
+
+# 22110029, Trần Huy Hoàng
 # Lab 1
 ## bof1
 *execute buffer overflow*  
 ![image](https://github.com/quang-ute/myprojects/assets/152377486/7758e4c8-2478-46e6-a6ba-9f3f07aa2a8c)
-: <span style="color:blue">GET / HTTP/1.1 </span><br>
+
+
+
 Code to run the container contain the lab
 
-#include<stdio.h>
-#include<unistd.h>
-void secretFunc()
-{
-    printf("Congratulation!\n:");
-}
-int vuln(){
-    char array[200];
-    printf("Enter text:");
-    gets(array);
-    return 0;
-}
-int main(int argc, char*argv[]){
-    if (argv[1]==0){
-        prinf("Missing arguments\n");
-    }
-    vuln();
-    return 0;
-}
 
 
-Header lines of HTTP request message (sample): <br>
-<span style="color:blue">Host: localhost:5050 <br>
-Connection: keep-alive <br>
-Cache-Control: max-age=0 <br>
-... (other headers) </span><br>
-Status line of HTTP response message: <span style="color:blue">HTTP/1.1 304 Not Modified </span><br>
-Header lines of HTTP response message (sample): 
-<span style="color:blue">Date: Mon, 15 Apr 2024 03:33:33 GMT <br>
-Server: Apache <br>
-Last-Modified: Mon, 18 Mar 2024 03:15:15 GMT <br>
-ETag: "1b6-613e6c4399123" <br>
-... (other headers) </span>
+![image](https://github.com/hoag142/myprojects/assets/152377486/f05ef518-7866-48e1-a132-7992cad71d21)
 
-<span style="color:blue">Blank line of HTTP response message: The line immediately following the headers, separating headers from the entity body (which is empty in this case).</span>
+
+
+We need to insert the address of the secretFunc into the eip.
+ ![image](https://github.com/hoag142/myprojects/assets/152377486/d552dced-7992-4839-98eb-241788459483)
+
+
+- Step 1 : Build the c program with `gcc -g bof1.c -o bof1.out -fno-stack-protector -z execstack -mpreferred-stack-boundary=2`
+
+  
+`-fno-stack-protector` : Turn off the compiler's stack smashing check option
+
+
+`-mpreferred-stack-boundary=2` : set boundary euqal 2 to make gdb look more clear
+
+ - Step 2 : run gdb to find the address of secretFunc(), run this code first `gdb bof1.out` and do this `disas secretFunc`
+
+   
+![image](https://github.com/hoag142/myprojects/assets/152377486/2096a6f9-fa70-4b2b-8b95-98dd8e0eba5a)
+
+
+we can see the address of secretFunc at the first line `0x0804846b`
+
+- Step 3 : Filling full buffer with random char and insert the function address
+
+![image](https://github.com/hoag142/myprojects/assets/152377486/03258068-9579-4265-8288-9cd5bf3ff75d)
+
+
+You can see that i fill buffer with 204 char `a` and insert address with little-endian type `/x6b/x84/x04/x08`
+And i success with the line `Congratulation!`
 
 ## 4.1.b
 *Is your browser running HTTP version 1.0 or 1.1? What version of HTTP is the server running?*
