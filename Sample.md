@@ -1,4 +1,3 @@
-![image](https://github.com/hoag142/myprojects/assets/152377486/9c376f9d-3f46-4952-95ec-153dd9db31e7)
 
 # 22110029, Trần Huy Hoàng
 # lab 1 Stack smashing
