@@ -1,4 +1,4 @@
-
+Link to file : https://github.com/hoag142/myprojects/blob/patch-1/Sample.md
 # 22110029, Trần Huy Hoàng
 # lab 1 Stack smashing
 ## task 1
