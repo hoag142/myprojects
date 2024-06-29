@@ -1,8 +1,9 @@
 
 
 # 22110029, Trần Huy Hoàng
-# Lab 1
-## bof1
+# lab 1 Stack smashing
+## task 1
+### bof1
 *execute buffer overflow*  
 ![image](https://github.com/quang-ute/myprojects/assets/152377486/7758e4c8-2478-46e6-a6ba-9f3f07aa2a8c)
 
@@ -44,7 +45,7 @@ we can see the address of secretFunc at the first line `0x0804846b`
 You can see that i fill buffer with 204 char `a`(why 204 because to fill the buffer we need 200 byte and more 4 byte to fill the ebp) and insert address with little-endian type `/x6b/x84/x04/x08`
 And i success with the line `Congratulation!`
 
-## bof 2
+### bof 2
 
 ![image](https://github.com/hoag142/myprojects/assets/152377486/61063590-0160-40c1-b29f-6a754e6f91a0)
 
@@ -73,5 +74,47 @@ I enter the value `0xdeadbeef` as little-endian type.
   ![image](https://github.com/hoag142/myprojects/assets/152377486/2b641368-1528-4b1a-9f63-a803bdf4a32e)
 
 And i success execute the buffer overflow
+### bof3
+
+The memory stack is arranged as follows in a 32 bit system
+  
+the frame of this code
+*we can easy see that*
+- buf  `[128 byte]`
+- func `[4 byte]`
+  
+If we enter 120 `A` characters and do not overflow buf memory, the func function pointer will be assigned to the `sup()` function and print `congrat`
+
+![image](https://github.com/hoag142/myprojects/assets/152377486/1c6f265d-f20b-4353-9994-f478f388a161)
+
+
+
+And if we overflow buf memory and fill full `var` with random char but not fill the `func` with random char too, the `sup()` func will cannot execute again, and will show the error `segmentaion fault`
+
+![image](https://github.com/hoag142/myprojects/assets/152377486/cb4a53cd-a91b-489d-8f88-0c7a3ae3c758)
+
+
+
+- If we want to the `shell()` func execute we need to insert the address of shell function in func pointer
+
+First we run gdb to find the address of shell(), run this code first `gdb bof3.out` and do this `disas shell`
+
+![image](https://github.com/hoag142/myprojects/assets/152377486/504869cd-612a-4c88-af7c-f535b59047c8)
+
+we can see `shell()` : `0x0804845b`
+
+Because, buf  `[128 byte]` . So, the offset to func is 128 bytes.
+And insert this address to func pointer with payload is 128 char `a` and `0x0804845b` address
+
+![image](https://github.com/hoag142/myprojects/assets/152377486/6e185975-44b7-4ac8-8e40-716cee7d76c0)
+
+
+## task 2
+### preparing shell code
+ Creating `file_del.asm`
+ 
+ ![image](https://github.com/hoag142/myprojects/assets/152377486/d6119185-6b06-4e4a-867c-98d3477cd97c)
+
+
 
 
